@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"github.com/thiagohmm/Desafio01FullcycleGoLang.git/controller"
+	"github.com/thiagohmm/Desafio01FullcycleGoLang/controller"
 )
 
 func main() {

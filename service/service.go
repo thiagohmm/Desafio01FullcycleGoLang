@@ -25,7 +25,7 @@ type Response struct {
 }
 
 // Remove the unused method
-func (c *Usdbrl) GetUsdbrl() (*Usdbrl, error) {
+func (c Usdbrl) GetUsdbrl() (*Usdbrl, error) {
 	resp, error := http.Get("https://economia.awesomeapi.com.br/json/last/USD-BRL")
 	if error != nil {
 		return nil, error
