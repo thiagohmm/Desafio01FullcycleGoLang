@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"io"
+	"log"
 	"net/http"
 )
 
@@ -29,6 +30,7 @@ func (c Usdbrl) GetUsdbrl(ctx context.Context) (*Usdbrl, error) {
 
 	req, err := http.NewRequestWithContext(ctx, "GET", "https://economia.awesomeapi.com.br/json/last/USD-BRL", nil)
 	if err != nil {
+		log.Fatal(err)
 		return nil, err
 	}
 
