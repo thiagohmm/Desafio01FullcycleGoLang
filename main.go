@@ -7,6 +7,10 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/", controller.PegaDolar)
-	http.ListenAndServe(":8080", nil)
+	mux := http.NewServeMux()
+
+	mux.HandleFunc("GET /", controller.PegaDolar)
+
+	http.ListenAndServe(":8080", mux)
+
 }
