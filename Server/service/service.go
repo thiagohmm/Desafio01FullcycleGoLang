@@ -31,7 +31,7 @@ type Response struct {
 }
 
 func SaveUsdbrl(com *sql.DB, usdbrl *Usdbrl) (int64, error) {
-	fmt.Println(usdbrl)
+
 	result, err := com.Exec("INSERT INTO usdbrl (code, codein, name, high, low, varBid, pctChange, bid, ask, timestamp, createDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
 		usdbrl.Code, usdbrl.Codein, usdbrl.Name, usdbrl.High, usdbrl.Low, usdbrl.VarBid, usdbrl.PctChange, usdbrl.Bid, usdbrl.Ask, usdbrl.Timestamp, usdbrl.CreateDate)
 	if err != nil {

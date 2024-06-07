@@ -17,7 +17,7 @@ func InitDB(filepath string) {
 		log.Fatal(err)
 	}
 
-	_, err = DB.Exec("CREATE TABLE IF NOT EXISTS usdbrl (code TEXT, codein TEXT, name TEXT, high TEXT, low TEXT, varBid TEXT, pctChange TEXT, bid TEXT, ask TEXT, timestamp TEXT, createDate TEXT)")
+	_, err = DB.Exec("CREATE TABLE IF NOT EXISTS usdbrl ( id INTEGER NOT NULL PRIMARY KEY, code TEXT, codein TEXT, name TEXT, high TEXT, low TEXT, varBid TEXT, pctChange TEXT, bid TEXT, ask TEXT, timestamp TEXT, createDate TEXT)")
 	if err != nil {
 		log.Fatalf("Error creating table: %v", err)
 	}
