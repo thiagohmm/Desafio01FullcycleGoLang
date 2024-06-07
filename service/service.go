@@ -1,6 +1,7 @@
 package service
 
 import (
+	"context"
 	"encoding/json"
 	"io"
 	"net/http"
@@ -24,24 +25,34 @@ type Response struct {
 	Usdbrl Usdbrl `json:"USDBRL"`
 }
 
-// Remove the unused method
-func (c Usdbrl) GetUsdbrl() (*Usdbrl, error) {
-	resp, error := http.Get("https://economia.awesomeapi.com.br/json/last/USD-BRL")
-	if error != nil {
-		return nil, error
+func (c Usdbrl) GetUsdbrl(ctx context.Context) (*Usdbrl, error) {
+
+	req, err := http.NewRequestWithContext(ctx, "GET", "https://economia.awesomeapi.com.br/json/last/USD-BRL", nil)
+	if err != nil {
+		return nil, err
 	}
-	if error != nil {
-		return nil, error
+
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return nil, err
 	}
+
 	defer resp.Body.Close()
-	body, error := io.ReadAll(resp.Body)
-	if error != nil {
-		return nil, error
+
+	body, err := io.ReadAll(resp.Body)
+
+	if err != nil {
+		return nil, err
 	}
-	var response Response
-	error = json.Unmarshal(body, &response)
-	if error != nil {
-		return nil, error
+
+	b := []byte(body)
+
+	var result Response
+	err = json.Unmarshal(b, &result)
+	if err != nil {
+		return nil, err
 	}
-	return &response.Usdbrl, nil
+
+	return &result.Usdbrl, nil
+
 }
