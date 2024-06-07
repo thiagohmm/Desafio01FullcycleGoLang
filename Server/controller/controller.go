@@ -13,10 +13,7 @@ import (
 func PegaDolar(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(context.Background(), 200*time.Millisecond)
 	defer cancel()
-	if r.URL.Path != "/" {
-		w.WriteHeader(http.StatusNotFound)
-		return
-	}
+
 	moeda := service.Usdbrl{}
 	cotacao, error := moeda.GetUsdbrl(ctx)
 	if error != nil {

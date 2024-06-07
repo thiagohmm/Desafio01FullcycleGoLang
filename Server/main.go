@@ -10,7 +10,9 @@ import (
 func main() {
 	db.InitDB("./usdbrl.db")
 	mux := http.NewServeMux()
-	mux.HandleFunc("/cotacao", controller.PegaDolar)
+
+	mux.HandleFunc("GET /cotacao/", controller.PegaDolar)
+
 	http.ListenAndServe(":8080", mux)
 
 }
