@@ -12,7 +12,7 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("GET /cotacao/", controller.PegaDolar)
-
+	mux.HandleFunc("GET /cotacao", controller.PegaDolar)
 	http.ListenAndServe(":8080", mux)
 
 }
