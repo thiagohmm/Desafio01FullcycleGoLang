@@ -35,8 +35,12 @@ func SaveUsdbrl(com *sql.DB, usdbrl *Usdbrl) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Millisecond)
 
 	defer cancel()
-	_, err := com.ExecContext(ctx, "INSERT INTO usdbrl (code, codein, name, high, low, varBid, pctChange, bid, ask, timestamp, createDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-		usdbrl.Code, usdbrl.Codein, usdbrl.Name, usdbrl.High, usdbrl.Low, usdbrl.VarBid, usdbrl.PctChange, usdbrl.Bid, usdbrl.Ask, usdbrl.Timestamp, usdbrl.CreateDate)
+	stmt, err := com.Prepare("INSERT INTO usdbrl (code, codein, name, high, low, varBid, pctChange, bid, ask, timestamp, createDate) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)")
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+	_, err = stmt.ExecContext(ctx, usdbrl.Code, usdbrl.Codein, usdbrl.Name, usdbrl.High, usdbrl.Low, usdbrl.VarBid, usdbrl.PctChange, usdbrl.Bid, usdbrl.Ask, usdbrl.Timestamp, usdbrl.CreateDate)
 	if err != nil {
 		if ctx.Err() == context.DeadlineExceeded {
 			log.Println("timeout to write in database")
