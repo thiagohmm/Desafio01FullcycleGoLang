@@ -13,7 +13,7 @@ import (
 )
 
 func saveToFile(dolar string) error {
-	file, err := os.Create("dolar.txt")
+	file, err := os.Create("cotacao.txt")
 	if err != nil {
 		return err
 	}
@@ -53,7 +53,10 @@ func main() {
 
 	var p fastjson.Parser
 	v, err := p.ParseBytes(body)
-	dolar := "Dolar " + v.Get("bid").String()
+	if err != nil {
+		log.Fatal(err)
+	}
+	dolar := "Dólar: { " + v.Get("bid").String() + " }"
 	err = saveToFile(dolar)
 	if err != nil {
 		log.Fatal(err)
